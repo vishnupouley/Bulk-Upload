@@ -13,14 +13,14 @@ This is a Django application designed to handle bulk uploads of user data. It pr
 
 ## Requirements
 
-- [Python 3.10+](https://docs.python.org/3/whatsnew/3.10.html)
-- [Django](https://docs.djangoproject.com/en/5.1/)
+- [Python 3.10+](https://docs.python.org/3/whatsnew/3.10.html)*
+- [Django](https://docs.djangoproject.com/en/5.1/)*
 - [django-browser-reload](https://github.com/adamchainz/django-browser-reload)
 - [django-cotton](https://django-cotton.com)
 - [django-htmx](https://django-htmx.readthedocs.io)
 - [django-tailwind](https://django-tailwind.readthedocs.io/en/latest/installation.html)
-- [pandas](https://pandas.pydata.org/docs)
-- [pydantic](https://docs.pydantic.dev/latest)
+- [pandas](https://pandas.pydata.org/docs)*
+- [pydantic](https://docs.pydantic.dev/latest)*
 - [pytest-django](https://pytest-django.readthedocs.io)
   
 ## Installation
