@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Bulk File Upload{% endblock title %}
+
+{% block content %}
+
+    <div class="flex justify-center items-center">
+        <button class="px-8 py-2 bg-cyan-800 mt-8 mb-8 rounded-full" name="popup" onclick="toggleForm()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                 stroke="currentColor" class="size-6 w-20 h-20 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5">
+                </path>
+            </svg>
+        </button>
+    </div>
+    <div class="items-center justify-center flex">
+        <h4 class=" text-2xl font-sofia">Upload . xlsx file</h4>
+    </div>
+    <div id="form-background" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center"
+         onclick="toggleForm()">
+        <div id="upload-form"
+             class="hidden w-96 bg-white p-8 rounded-xl shadow-md transform transition-all duration-1000 scale-0"
+             onclick="event.stopPropagation()">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Upload Excel File</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="myfile" class="block text-sm font-medium font-sofia text-gray-700">Select Excel
+                        File</label>
+                    <input type="file" name="myfile" id="myfile" accept=".xlsx" required
+                           class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-lg
+                                  file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-none
+                                  file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:outline-none focus:ring-2
+                                  focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="submit"
+                        class="w-full px-4 py-2 bg-blue-600 text-white font-bold rounded-lg
+                           hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Upload
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const formBackground = document.getElementById('form-background');
+            const uploadForm = document.getElementById('upload-form');
+            formBackground.classList.toggle('hidden');
+            uploadForm.classList.toggle('hidden');
+            if (!uploadForm.classList.contains('hidden')) {
+                uploadForm.classList.remove('scale-0');
+                uploadForm.classList.add('scale-100');
+            } else {
+                uploadForm.classList.remove('scale-100');
+                uploadForm.classList.add('scale-0');
+            }
+        }
+    </script>
+    {% comment %}
+            <div class="flex justify-center items-center">
+        <button class="px-8 py-2 bg-cyan-800 mt-8 mb-8 rounded-full" name="popup" @click="document.getElementById('form-background').classList.toggle('hidden')">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                 stroke="currentColor" class="size-6 w-20 h-20 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5">
+                </path>
+            </svg>
+        </button>
+    </div>
+
+    <div x-data="{ showForm: false }" @click.away="showForm = false"
+         class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50"
+         :class="{ 'hidden': !showForm }" id="form-background">
+        <div class="bg-white p-8 rounded-xl shadow-md transform transition-all duration-1000 scale-0"
+             x-show="showForm"
+             @click.stop
+             x-transition:enter="transition ease-out duration-100 transform"
+             x-transition:enter-start="scale-0"
+             x-transition:enter-end="scale-100"
+             x-transition:leave="transition ease-in duration-75 transform"
+             x-transition:leave-start="scale-100"
+             x-transition:leave-end="scale-0"
+             id="upload-form">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Upload Excel File</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="myfile" class="block text-sm font-medium text-gray-700">Select Excel File</label>
+                    <input type="file" name="myfile" id="myfile" accept=".xlsx" required
+                           class="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-lg
+                                  file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-none
+                                  file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 focus:outline-none focus:ring-2
+                                  focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="submit"
+                        class="w-full px-4 py-2 bg-blue-600 text-white font-bold rounded-lg
+                           hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Upload
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% endcomment %}
+
+    {% if users %}
+        <c-table-data :users="{{ users }}"></c-table-data>
+    {% else %}
+        <div class="text-center text-gray-500 mt-8">
+            <h2 class="text-3xl font-bold mb-4">No data found</h2>
+            <p class="text-lg">Please upload a valid Excel file to view the data.</p>
+        </div>
+    {% endif %}
+{% endblock content %}
