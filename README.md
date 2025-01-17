@@ -38,7 +38,7 @@ This is a Django application designed to handle bulk uploads of user data. It pr
   pip install -r requirements.txt
   ```
 - Complete the process that the documentation says (which I've linked in the [Requirements](https://github.com/vishnupouley/Bulk-Upload/blob/main/README.md#requirements))
-- Add this into your INSTALLED_APPS list which is in the settings.py:
+- Add this into your INSTALLED_APPS and MIDDLEWARE list which is in the settings.py:
   ```python
   INSTALLED_APPS = [
   
@@ -56,6 +56,19 @@ This is a Django application designed to handle bulk uploads of user data. It pr
     'django_browser_reload', # Read the documentation
 
     'bulkupload', # Name of this application 
+  ]
+
+  MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django_browser_reload.middleware.BrowserReloadMiddleware', # Read the documentation
+    "django_htmx.middleware.HtmxMiddleware", # Read the documentation
   ]
   ```
 - Run the migrations:
