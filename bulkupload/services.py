@@ -1,6 +1,5 @@
 from bulkupload.models import UsersModel
 from pydantic import BaseModel
-import pandas as pd
 from pandas import DataFrame
 
 
