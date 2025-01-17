@@ -58,6 +58,12 @@ This is a Django application designed to handle bulk uploads of user data. It pr
     'bulkupload', # Name of this application 
   ]
 
+  TAILWIND_APP_NAME = 'theme'
+
+  INTERNAL_IPS = [
+    "127.0.0.1",
+  ]
+
   MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
