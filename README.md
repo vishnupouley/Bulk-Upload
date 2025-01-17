@@ -46,3 +46,17 @@ This is a Django application designed to handle bulk uploads of user data. It pr
   ```bash
   python manage.py runserver
   ```
+
+## Usage
+
+1. Open the application in your web browser: http://localhost:8000
+2. Click on the "Upload File" button to select an Excel file
+3. Click on the "Upload" button to upload the file
+4. The application will validate the data and save it to the database
+5. You can view the uploaded data by clicking on the "View Data" button
+
+## Troubleshooting
+
+- If you encounter any issues during installation or usage, please check the logs for errors
+- Make sure you have the required packages installed
+- If you're still having trouble, feel free to open an issue on the GitHub repository
