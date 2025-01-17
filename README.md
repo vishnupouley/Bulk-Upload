@@ -14,10 +14,15 @@ This is a Django application designed to handle bulk uploads of user data. It pr
 ## Requirements
 
 - Python 3.8+
-- Django 5.1.4+
-- pandas 1.4.2+
-- pydantic 1.10.2+
-
+- Django 
+- django-browser-reload
+- django-cotton
+- django-htmx
+- django-tailwind
+  - pandas
+- pydantic
+- pytest-django
+  
 ## Installation
 
 - Clone the repository:
@@ -34,8 +39,24 @@ This is a Django application designed to handle bulk uploads of user data. It pr
   ```
 - Add this into your INSTALLED_APPS list which is in the settings.py:
   ```python
-  ...
-  "bulkupload", # Application Name
+  INSTALLED_APPS = [
+  
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'django_cotton',
+    'django_htmx',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
+
+    'fileupload',
+    'bulkupload',
+  ]
   ```
 - Run the migrations:
   ```bash
