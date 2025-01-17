@@ -90,10 +90,6 @@ This is a Django application designed to handle bulk uploads of user data. It pr
 ## Usage
 
 1. Open the application in your web browser: http://localhost:8000
-2. Click on the "Upload File" button to select an Excel file
-3. Click on the "Upload" button to upload the file
-4. The application will validate the data and save it to the database
-5. You can view the uploaded data inside the table
 
 ## Troubleshooting
 
