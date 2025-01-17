@@ -14,6 +14,14 @@ class Users(BaseModel):
     mobile_number: str
 
 
+def validate_column_names(data_frame: DataFrame) -> bool:
+    """Validate if the column names in the DataFrame match the expected model fields."""
+    if data_frame is None:
+        return False
+
+    column_names = [col.lower() for col in data_frame.columns]
+    return all(field in column_names for field in Users.model_fields.keys())
+
 def save_bulk_data(data_frame: DataFrame | None) -> list[Users]:
     if data_frame is not None:
         data_frame.columns = [col.lower().replace(' ', '_') for col in data_frame.columns]
