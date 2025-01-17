@@ -13,15 +13,15 @@ This is a Django application designed to handle bulk uploads of user data. It pr
 
 ## Requirements
 
-- Python 3.8+
-- Django 
-- django-browser-reload
-- django-cotton
-- django-htmx
-- django-tailwind
-  - pandas
-- pydantic
-- pytest-django
+- [Python 3.10+](https://docs.python.org/3/whatsnew/3.10.html)
+- [Django](https://docs.djangoproject.com/en/5.1/)
+- [django-browser-reload](https://github.com/adamchainz/django-browser-reload)
+- [django-cotton](https://django-cotton.com)
+- [django-htmx](https://django-htmx.readthedocs.io)
+- [django-tailwind](https://django-tailwind.readthedocs.io/en/latest/installation.html)
+- [pandas](https://pandas.pydata.org/docs)
+- [pydantic](https://docs.pydantic.dev/latest)
+- [pytest-django](https://pytest-django.readthedocs.io)
   
 ## Installation
 
@@ -37,6 +37,7 @@ This is a Django application designed to handle bulk uploads of user data. It pr
   ```bash
   pip install -r requirements.txt
   ```
+- Complete the process that the documentation says (which I've linked in the Requirements)
 - Add this into your INSTALLED_APPS list which is in the settings.py:
   ```python
   INSTALLED_APPS = [
@@ -48,14 +49,13 @@ This is a Django application designed to handle bulk uploads of user data. It pr
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_cotton',
-    'django_htmx',
-    'tailwind',
-    'theme',
-    'django_browser_reload',
+    'django_cotton', # Read the ducumentations
+    'django_htmx', # Read the documentations
+    'tailwind', # Read the documentation
+    'theme', # Read the documentation
+    'django_browser_reload', # Read the documentation
 
-    'fileupload',
-    'bulkupload',
+    'bulkupload', # Name of this application 
   ]
   ```
 - Run the migrations:
