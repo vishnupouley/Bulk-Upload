@@ -6,7 +6,7 @@ from django.http import HttpRequest, HttpResponse
 from pandas import DataFrame
 
 from bulkupload.models import UsersModel
-from bulkupload.services import save_bulk_data
+from bulkupload.services import save_bulk_data, validate_column_names
 
 
 # Create your views here.
@@ -33,6 +33,12 @@ def import_data_pandas(request: HttpRequest) -> HttpResponse:
         return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
     try:
         data_frame: DataFrame = pd.read_excel(uploaded_file)
+        if len(data_frame) == 0:
+            messages.error(request, "No data in the file uploaded.")
+            return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
+        if not validate_column_names(data_frame=data_frame):
+            messages.error(request, "Invalid file format. Please check the file format.")
+            return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
     except ValueError:
         messages.error(request, "Error reading file. Please check the file format.")
         return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
@@ -40,52 +46,3 @@ def import_data_pandas(request: HttpRequest) -> HttpResponse:
     messages.success(request, "Data Uploaded Successfully")
     return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=data_frame)})
 
-
-"""
-
-from bulkupload.resources import UsersResource
-from tablib import Dataset
-
-
-def import_data(request):
-
-    Handle the import of data from an Excel file.
-
-    If the request is a POST, read the Excel file, create a list of UsersModel
-    objects from the data, and then use bulk_create to save them to the database.
-
-    if request.method == 'POST':
-        user_resource = UsersResource()
-        dataset = Dataset()
-
-        # Read the Excel file
-        uploaded_file = request.FILES['myfile']
-        imported_data = dataset.load(uploaded_file.read(), format='xlsx')
-
-        # Create a list of UsersModel objects from the data
-        users_to_create = []
-        for row in imported_data:
-            user = UsersModel(
-                user_id=row[0],
-                user_name=row[1],
-                email=row[2],
-                business_unit=row[3],
-                department=row[4],
-                date_of_joining=row[5],
-                mobile_number=row[6],
-            )
-            users_to_create.append(user)
-
-        # Use bulk_create to save the users to the database
-        UsersModel.objects.bulk_create(users_to_create)
-
-        # Send a success message
-        messages.success(request, "Data Uploaded Successfully")
-
-        # Return the updated list of users
-        return render(request, 'bulkupload/index.html', {'users': UsersModel.objects.all()})
-
-    # If the request is a GET, return the list of users
-    return render(request, 'bulkupload/index.html', {'users': UsersModel.objects.all()})
-
-"""
