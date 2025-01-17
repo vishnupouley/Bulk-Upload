@@ -37,7 +37,7 @@ This is a Django application designed to handle bulk uploads of user data. It pr
   ```bash
   pip install -r requirements.txt
   ```
-- Complete the process that the documentation says (which I've linked in the [Requirements](https://github.com/vishnupouley/Bulk-Upload/edit/main/README.md#requirements))
+- Complete the process that the documentation says (which I've linked in the [Requirements](https://github.com/vishnupouley/Bulk-Upload/blob/main/README.md#requirements))
 - Add this into your INSTALLED_APPS list which is in the settings.py:
   ```python
   INSTALLED_APPS = [
