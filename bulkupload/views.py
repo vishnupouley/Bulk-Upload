@@ -5,7 +5,6 @@ import pandas as pd
 from django.http import HttpRequest, HttpResponse
 from pandas import DataFrame
 
-from bulkupload.models import UsersModel
 from bulkupload.services import save_bulk_data, validate_column_names
 
 
