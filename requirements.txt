@@ -1,0 +1,8 @@
+Django==5.1.4
+django-browser-reload==1.17.0
+django-cotton==1.5.1
+django-htmx==1.21.0
+django-tailwind==3.8.0
+pandas==2.2.3
+pydantic==2.10.5
+pytest-django==4.9.0
