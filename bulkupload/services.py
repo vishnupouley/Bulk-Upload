@@ -1,6 +1,8 @@
-from bulkupload.models import UsersModel
+from datetime import date
 from pydantic import BaseModel
 from pandas import DataFrame
+
+from bulkupload.models import UsersModel
 
 
 class Users(BaseModel):
@@ -9,40 +11,31 @@ class Users(BaseModel):
     email: str
     business_unit: str
     department: str
-    date_of_joining: str
+    date_of_joining: date
     mobile_number: str
 
 
-def validate_column_names(data_frame: DataFrame) -> bool:
-    """Validate if the column names in the DataFrame match the expected model fields."""
-    if data_frame is None:
-        return False
-
-    column_names = [col.lower() for col in data_frame.columns]
-    return all(field in column_names for field in Users.model_fields.keys())
-
 def save_bulk_data(data_frame: DataFrame | None) -> list[Users]:
     if data_frame is not None:
-        data_frame.columns = [col.lower().replace(' ', '_') for col in data_frame.columns]
+        # Standardize column names
 
+        # Map DataFrame columns to model fields
         column_mapping: dict[str, str] = {
-            'user_id': 'user_id',
-            'user_name': 'user_name',
-            'email': 'email',
-            'business_unit': 'business_unit',
-            'department': 'department',
-            'date_of_joining': 'date_of_joining',
-            'mobile_number': 'mobile_number'
+            'User ID': 'user_id',
+            'User Name': 'user_name',
+            'Email': 'email',
+            'Business Unit': 'business_unit',
+            'Department': 'department',
+            'Date of Joining': 'date_of_joining',
+            'Mobile Number': 'mobile_number'
         }
         data_frame.rename(columns=column_mapping, inplace=True, errors='ignore')
 
-        if 'date_of_joining' in data_frame.columns:
-            data_frame['date_of_joining'] = pd.to_datetime(data_frame['date_of_joining'], errors='coerce').dt.strftime(
-                '%Y-%m-%d')
-
+        # Filter out existing users
         existing_user_ids: set[str] = set(UsersModel.objects.values_list('user_id', flat=True))
         data_frame = data_frame[~data_frame['user_id'].isin(existing_user_ids)]
 
+        # Create user instances
         users_to_create: list[UsersModel] = [UsersModel(**row) for row in data_frame.to_dict(orient='records')]
         UsersModel.objects.bulk_create(users_to_create)
 
