@@ -31,11 +31,11 @@ class UsersModel(models.Model):
     email = models.EmailField(max_length=50)
     business_unit = models.CharField(
         max_length=10,
-        choices=BusinessUnitChoices.choices,
+        choices=BusinessUnitChoices,
     )
     department = models.CharField(
         max_length=18,
-        choices=DepartmentChoices.choices,
+        choices=DepartmentChoices,
     )
     date_of_joining = models.DateField()
     mobile_number = models.CharField(max_length=15)
