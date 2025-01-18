@@ -1,11 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
 import pandas as pd
 
-from django.http import HttpRequest, HttpResponse
-from pandas import DataFrame
-
-from bulkupload.services import save_bulk_data, validate_column_names
+from bulkupload.services import save_bulk_data
 
 
 # Create your views here.
@@ -23,25 +21,30 @@ def import_data_pandas(request: HttpRequest) -> HttpResponse:
     """
     if request.method != 'POST':
         return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
+
     uploaded_file = request.FILES.get('myfile')
-    if uploaded_file is None:
+    if not uploaded_file:
         messages.error(request, "No file uploaded.")
         return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
+
     if uploaded_file.size == 0:
         messages.error(request, "No data in the file uploaded.")
         return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
+
     try:
-        data_frame: DataFrame = pd.read_excel(uploaded_file)
-        if len(data_frame) == 0:
+        data_frame = pd.read_excel(uploaded_file)
+        if data_frame.empty:
             messages.error(request, "No data in the file uploaded.")
             return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
-        if not validate_column_names(data_frame=data_frame):
-            messages.error(request, "Invalid file format. Please check the file format.")
-            return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
+
     except ValueError:
         messages.error(request, "Error reading file. Please check the file format.")
         return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
 
-    messages.success(request, "Data Uploaded Successfully")
-    return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=data_frame)})
-
+    try:
+        save_bulk_data(data_frame=data_frame)
+        messages.success(request, "Data Uploaded Successfully")
+        return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=data_frame)})
+    except Exception:
+        messages.error(request, "Error saving data")
+        return render(request, 'bulkupload/index.html', {'users': save_bulk_data(data_frame=None)})
