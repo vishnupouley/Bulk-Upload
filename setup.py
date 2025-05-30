@@ -1,0 +1,40 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="bulkupload",
+    version="0.1.0",
+    packages=find_packages(),
+    include_package_data=True,
+    install_requires=[
+        "Django>=5.0",
+        "pandas>=2.2.3",
+        "pydantic>=2.10.5",
+    ],
+    author="Vishnu Vardhan",
+    author_email="vishnupouley@gmail.com",
+    description="Bulk Upload for Django",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    url="https://github.com/vishnupouley/Bulk-Upload",
+    # project_urls={
+    #     "Documentation": "https://github.com/vishnupouley/Bulk-Upload/blob/main/README.md",
+    #     "Source": "https://github.com/vishnupouley/Bulk-Upload",
+    # },
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Environment :: Web Environment",
+        "Framework :: Django",
+        "Framework :: Django :: 5.0",
+        "Framework :: Django :: 5.1",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Development Status :: 3 - Alpha",
+        "Natural Language :: English",
+    ],
+    keywords=["Django", "Bulk Upload", "Excel", "CSV", "Data Import", "Data Management"],
+)
