@@ -17,7 +17,6 @@ class DepartmentChoices(models.TextChoices):
     software = 'Software'
     hr = 'Human Resource'
     web_design = 'Web Design'
-    ui_ux = 'UI/UX'
     testing = 'Testing'
     qa = 'Quality Assurance'
     sales = 'Sales'

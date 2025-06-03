@@ -16,16 +16,15 @@
             </button>
         </div>
 
-
         <div class="items-center justify-center flex">
             <h4 class=" text-2xl font-sofia">Upload . xlsx file</h4>
         </div>
-
+{{ messages }}
         <!-- Messages section -->
         <div id="messages-container" class="mb-4">
             {% if messages %}
                 {% for message in messages %}
-                    <div class="p-4 mb-4 rounded-md {% if message.tags == 'success' %}bg-green-200 text-green-700{% else %}bg-red-200 text-red-700{% endif %}"
+                    <div class="p-4 mx-44 mb-4 rounded-xl {% if message.tags == 'success' %}bg-green-200 text-green-700 {% elif message.tags == 'info' %}bg-blue-200 text-blue-700 {% else %}bg-red-200 text-red-700{% endif %}"
                          role="alert">
                         {{ message }}
                     </div>
@@ -113,7 +112,7 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <span class="text-sm text-gray-700">Show</span>
-                        <div class="relative inline-block w-16 text-gray-700">
+                        <div class="relative inline-block w-16 py-0 text-gray-700">
                             <label>
                                 <select name="per_page"
                                         class="block appearance-none w-full border-none text-xs rounded-full bg-gray-300 placeholder-gray-400 focus:outline-none focus:ring-neutral-500 focus:border-none h-6"
