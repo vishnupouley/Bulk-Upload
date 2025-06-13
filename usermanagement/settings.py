@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'django_browser_reload',
 
     'bulkupload',
+    'list_picker',
 ]
 
 TAILWIND_APP_NAME = 'theme'

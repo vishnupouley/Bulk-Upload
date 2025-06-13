@@ -1,0 +1,9 @@
+<h3 class="text-lg font-semibold mb-2">Employees</h3>
+<ul class="space-y-2">
+    {% for employee in employees %}
+        <li>
+            <input type="checkbox" name="selected_employees" value="{{ employee.id }}" class="mr-2">
+            {{ employee.name }} ({{ employee.team.name }})
+        </li>
+    {% endfor %}
+</ul>

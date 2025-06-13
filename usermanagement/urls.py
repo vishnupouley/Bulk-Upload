@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path('', include('bulkupload.urls', namespace='bulkupload')),
+    path('list-picker/', include('list_picker.urls', namespace='list_picker')),
 ]
