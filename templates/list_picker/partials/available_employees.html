@@ -1,4 +1,4 @@
-<select multiple id="available-employees-select" name="available_employees" class="w-full h-64 border-none bg-transparent focus:ring-0 focus:outline-none p-2 text-sm" hx-swap-oob="true">
+<select multiple id="available-employees-select" name="available_employees" class="w-full h-60 border-none bg-transparent focus:ring-0 focus:outline-none p-2 text-sm" hx-swap-oob="true">
     {% for employee in employees %}
         <option value="{{ employee.id }}" class="p-1 hover:bg-gray-200 cursor-pointer">{{ employee.name }}</option>
     {% endfor %}
